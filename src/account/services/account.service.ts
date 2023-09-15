@@ -30,6 +30,16 @@ export class AccountService {
       throw new NotFoundException('User not found');
     }
   }
+  async findUserByEmail(email: string): Promise<AccountEntity> {
+    try {
+      const searchUserByEmail = await this.prisma.account.findUnique({
+        where: { email: email },
+      });
+      return new AccountEntity(searchUserByEmail);
+    } catch {
+      throw new NotFoundException('User not found');
+    }
+  }
 
   async update(id: string, data: UpdateAccountDto) {
     try {
