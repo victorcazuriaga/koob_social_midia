@@ -12,3 +12,4 @@ export class PostEntity {
     return postList.map((post) => new PostEntity(post));
   }
 }
+
