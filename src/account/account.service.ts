@@ -4,6 +4,9 @@ import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Injectable()
 export class AccountService {
+  findUserByEmail() {
+    throw new Error('Method not implemented.');
+  }
   create(createAccountDto: CreateAccountDto) {
     return 'This action adds a new account';
   }
