@@ -1,3 +1,4 @@
+import { Post } from '@prisma/client';
 import { Exclude } from 'class-transformer';
 
 export class AccountEntity {
@@ -8,6 +9,8 @@ export class AccountEntity {
   password: string;
   birthdate: string;
   biography: string;
+  Post?: Post[];
+
   constructor(partial: Partial<AccountEntity>) {
     Object.assign(this, partial);
   }

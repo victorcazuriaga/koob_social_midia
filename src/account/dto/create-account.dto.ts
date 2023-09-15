@@ -1,4 +1,3 @@
-import { Exclude } from 'class-transformer';
 import {
   IsDateString,
   IsEmail,
@@ -15,7 +14,6 @@ export class CreateAccountDto {
 
   @IsNotEmpty()
   @IsStrongPassword()
-  @Exclude()
   password: string;
 
   @IsNotEmpty()

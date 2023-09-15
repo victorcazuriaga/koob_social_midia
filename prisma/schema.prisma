@@ -18,4 +18,13 @@ model Account {
   birthdate String
   biography String
   createdAt DateTime @default(now())
+  Post      Post[]
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  content   String
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String
+  createdAt DateTime @default(now())
 }
