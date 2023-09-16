@@ -8,6 +8,5 @@ import { PrismaModule } from 'src/database/prisma.module';
   imports: [PrismaModule],
   controllers: [AccountController],
   providers: [AccountService, PrismaService],
-
 })
 export class AccountModule {}
