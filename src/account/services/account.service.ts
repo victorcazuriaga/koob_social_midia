@@ -43,6 +43,7 @@ export class AccountService {
 
   async update(id: string, data: UpdateAccountDto) {
     try {
+      if (data.password) data.password = await encodePassword(data.password);
       const updateUserById = await this.prisma.account.update({
         where: { id: id },
         data,

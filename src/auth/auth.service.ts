@@ -11,7 +11,7 @@ export class AuthService {
   async signIn(email: string, pass: string) {
     const user = await this.accountService.findUserByEmail(email);
     const passwordDecode = await decodePassword(pass, user.password);
-    if (passwordDecode) {
+    if (!passwordDecode) {
       throw new UnauthorizedException();
     }
     const payload = { sub: user.id, username: user.email };
