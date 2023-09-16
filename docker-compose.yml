@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=postgresql://postgres:admin@db:5432/koob
+      - JWT_SECRET=DADJADOAODIAODIAIODIOA
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./:/usr/src/app
+
+  db:
+    container_name: db
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=koob
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d koob']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
