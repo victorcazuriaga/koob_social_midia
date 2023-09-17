@@ -3,6 +3,7 @@ import { PostService } from './post.service';
 import { PrismaService } from 'src/database/prisma.service';
 import { PostEntity } from '../entities/post.entity';
 import { AccountEntity } from 'src/account/entities/account.entity';
+import { JwtService } from '@nestjs/jwt';
 //TODO: passar para arquivo unico de mocks
 const mockedUsersList = [
   {
@@ -36,18 +37,17 @@ describe('PostService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PostService, PrismaService],
+      providers: [PostService, PrismaService, JwtService],
     }).compile();
-    postService = module.get<PostService>(PostService);
 
+    postService = module.get<PostService>(PostService);
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
-  afterEach(async () => {
-    await prismaService.account.deleteMany();
-  });
-
   beforeEach(async () => {
+    await prismaService.account.deleteMany();
+    await prismaService.post.deleteMany();
+
     await Promise.all(
       mockedUsersList.map(
         async (user, index) =>
@@ -71,8 +71,9 @@ describe('PostService', () => {
 
   it('should service create post', async () => {
     const user = usersList[0];
-    const createdPost = await postService.create(user.id, {
+    const createdPost = await postService.create({
       content: 'test create',
+      accountId: user.id,
     });
     const expectedUser = new PostEntity(
       await prismaService.post.findUnique({
@@ -112,7 +113,7 @@ describe('PostService', () => {
 
   it('should service remove post', async () => {
     const post = usersList[0].Post[0];
-
+    console.log(post);
     await postService.remove(post.id);
     const expectedUser = await prismaService.post.findUnique({
       where: { id: post.id },

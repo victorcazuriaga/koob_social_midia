@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { UpdateAccountDto } from '../dto/update-account.dto';
 import { PrismaService } from 'src/database/prisma.service';
@@ -9,7 +9,12 @@ export class AccountService {
   constructor(private prisma: PrismaService) {}
 
   async create(data: CreateAccountDto): Promise<AccountEntity> {
-    // TODO: refazer try catch com global handling error
+    const checkIfUserExists = await this.prisma.account.findFirst({
+      where: { email: data.email },
+    });
+    if (checkIfUserExists) {
+      throw new HttpException('E-mail already registered', 400);
+    }
     const password = await encodePassword(data.password);
     data.password = password;
     return await this.prisma.account.create({ data });
@@ -56,10 +61,9 @@ export class AccountService {
 
   async remove(id: string) {
     try {
-      const deleteUserById = await this.prisma.account.delete({
+      await this.prisma.account.delete({
         where: { id: id },
       });
-      return deleteUserById;
     } catch {
       throw new NotFoundException('User not found');
     }
