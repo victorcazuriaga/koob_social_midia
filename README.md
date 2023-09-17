@@ -1,73 +1,137 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Lacrei Saúde
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Índice
 
-## Description
+- [Visão Geral](#visão-geral)
+- [Requisitos](#requisitos)
+- [Tecnologias](#tecnologias-utilizadas)
+- [Configuração de Variáveis de ambiente ](#configuração-de-variáveis-de-ambiente)
+- [Instalação das Dependências](#instalação-das-dependências)
+- [Executando o Projeto](#executando-o-projeto)
+- [Executando com Docker](#executando-com-docker)
+- [Testes](#testes)
+- [Uso](#uso)
+- [Licença](#licença)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Visão Geral
+![image](https://github.com/victorcazuriaga/koob_social_midia/assets/47061852/b8033446-2a1b-4f16-87f7-4e57add5ad02)
 
-```bash
-$ pnpm install
+
+
+## Tecnologias Utilizadas
+A API foi desenvolvida utilizando as seguintes tecnologias:
+
+- Linguagem de Programação: [Javascript]
+- Framework: [NestJS]
+- Banco de Dados: [Postgres]
+- Outras Bibliotecas: [Bcrypt, Swagger, PrismaORM, Jwt]
+
+
+
+## Requisitos
+
+- NodeJs (versão 18.0.X)
+- Docker (versão 23.0.X)
+- Docker Compose (versão 2.17.X)
+- Postgres (versão 15.X.X)
+
+
+## Configuração de Variáveis de ambiente
+1. crie na raiz do projeto o arquivo .env
+
+2. preencha a .env de acordo com .env.example
+   
+```
+JWT_SECRET={insira uma secret_key}
+DATABASE_URL={insira uri banco de dados}
+
 ```
 
-## Running the app
+## Instalação das Dependências
+Para instalar as dependências do projeto, execute o seguinte comando:
 
-```bash
-# development
-$ pnpm run start
+pnpm: 
+```
+pnpm install
 
-# watch mode
-$ pnpm run start:dev
+```
+npm: 
+```
+npm install
 
-# production mode
-$ pnpm run start:prod
 ```
 
-## Test
+## Executando o Projeto
+Siga os passos abaixo para executar o projeto:
 
-```bash
-# unit tests
-$ pnpm run test
+1. Gerar as migrações
 
-# e2e tests
-$ pnpm run test:e2e
+pnpm: 
+```
+pnpm prisma migrate deploy
 
-# test coverage
-$ pnpm run test:cov
+```
+npm: 
+```
+npx prisma migrate deploy
+
+```
+2. Inicie o servidor de desenvolvimento:
+
+pnpm: 
+```
+pnpm start:dev
+
+```
+npm: 
+```
+npm run start:dev
+```
+O servidor estará disponível em http://localhost:3000.
+
+## Executando com Docker
+Siga os passos abaixo para executar o projeto utilizando o Docker:
+
+1. Execute o comando para construir as imagens e iniciar os containers:
+
+```
+docker compose up
+```
+Isso irá construir as imagens e iniciar os containers necessários para o projeto.
+
+2. O servidor estará disponível em http://localhost:3000.
+
+## Testes
+Para executar os testes do projeto, utilize o seguinte comando:
+pnpm: 
+```
+pnpm test
+
+```
+npm: 
+```
+npm run test
+
 ```
 
-## Support
+## Uso
+- Executando em ambiente local
+1. Consultar a documentação Swagger
+```
+localhost:3000/api
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- Utilizando a versão publicada no Render
+BaseUrl: https://desafio-koob.onrender.com/
+1. Consultar a documentação Swagger
+```
+https://desafio-koob.onrender.com/api
+```
+* Observações: deploy utilizando nivel free no render, devido a isto e possível que ao acessar as rotas pela primeira vez demore cerca de  2 - 10 minutos,
+já que a maquina fica inativa. 
+## Licença
+[MIT License](LICENSE)
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+[Linkedin](https://www.linkedin.com/in/victorcazuriaga/)
