@@ -23,7 +23,7 @@
 ## Tecnologias Utilizadas
 A API foi desenvolvida utilizando as seguintes tecnologias:
 
-- Linguagem de Programação: [Javascript]
+- Linguagem de Programação: [Typescript]
 - Framework: [NestJS]
 - Banco de Dados: [Postgres]
 - Outras Bibliotecas: [Bcrypt, Swagger, PrismaORM, Jwt]
