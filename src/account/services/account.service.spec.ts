@@ -38,16 +38,15 @@ describe('AccountService', () => {
     }).compile();
     accountService = module.get<AccountService>(AccountService);
     prismaService = module.get<PrismaService>(PrismaService);
-    await prismaService.account.deleteMany();
-  });
-
-  afterEach(async () => {
-    await prismaService.account.deleteMany();
   });
 
   beforeEach(async () => {
+    await prismaService.account.deleteMany();
+
     usersList = await Promise.all(
-      mockedUsersList.map(async (user) => await accountService.create(user)),
+      mockedUsersList.map(
+        async (user) => await prismaService.account.create({ data: user }),
+      ),
     );
   });
 

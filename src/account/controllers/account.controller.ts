@@ -3,11 +3,12 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   ClassSerializerInterceptor,
   UseInterceptors,
+  Put,
+  HttpCode,
 } from '@nestjs/common';
 import { AccountService } from '../services/account.service';
 import { CreateAccountDto } from '../dto/create-account.dto';
@@ -47,7 +48,7 @@ export class AccountController {
     return this.accountService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ApiOperation({
     summary: 'Update by id user register',
     description: 'endpoint to update for a user by id',
@@ -57,6 +58,7 @@ export class AccountController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   @ApiOperation({
     summary: 'Delete by id user register',
     description: 'endpoint to delete for a user by id',

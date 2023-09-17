@@ -3,10 +3,10 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
@@ -20,16 +20,13 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 export class PostController {
   constructor(private readonly postService: PostService) {}
   @UseGuards(AuthGuard)
-  @Post(':accountId')
+  @Post()
   @ApiOperation({
     summary: 'Create Post',
     description: 'endpoint to create post',
   })
-  create(
-    @Param('accountId') accountId: string,
-    @Body() createPostDto: CreatePostDto,
-  ) {
-    return this.postService.create(accountId, createPostDto);
+  create(@Body() createPostDto: CreatePostDto) {
+    return this.postService.create(createPostDto);
   }
 
   @Get()
@@ -50,7 +47,7 @@ export class PostController {
     return this.postService.findOne(id);
   }
   @UseGuards(AuthGuard)
-  @Patch(':id')
+  @Put(':id')
   @ApiOperation({
     summary: 'Update Post by Id',
     description: 'endpoint to update post by id',

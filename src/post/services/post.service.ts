@@ -8,10 +8,8 @@ import { UpdatePostDto } from '../dto/update-post.dto';
 export class PostService {
   constructor(private prisma: PrismaService) {}
 
-  async create(accountId: string, data: CreatePostDto): Promise<PostEntity> {
-    return new PostEntity(
-      await this.prisma.post.create({ data: { ...data, accountId } }),
-    );
+  async create(data: CreatePostDto): Promise<PostEntity> {
+    return new PostEntity(await this.prisma.post.create({ data }));
   }
 
   async findAll(): Promise<PostEntity[]> {
